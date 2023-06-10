@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.List.of;
@@ -119,6 +120,16 @@ class ProductJpaRepositoryTest {
     void existsByIdMethod() {
         boolean exists = productJpaRepository.existsById(1L);
         System.out.println("exists = " + exists);
+    }
+
+    @Test
+    void findByDateCreatedBetween() {
+        // start date
+        List<Product> products = productJpaRepository.findByDateCreatedBetween(
+                LocalDateTime.of(2023, 6, 9, 23, 55),
+                LocalDateTime.now()
+        );
+        products.forEach(product -> System.out.println(product.getSku() + product.getId()));
     }
 
 }
