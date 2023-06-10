@@ -4,6 +4,7 @@ import com.example.spring_data_jpa_java.entity.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -130,6 +131,17 @@ class ProductJpaRepositoryTest {
                 LocalDateTime.now()
         );
         products.forEach(product -> System.out.println(product.getSku() + product.getId()));
+    }
+
+    @Test
+    void sortingByMultipleFields() {
+        String sortBy = "name";
+        String sortByDesc = "description";
+        Sort sortByName = Sort.by(sortBy).descending();
+        Sort sortByDescription = Sort.by(sortByDesc).descending();
+        Sort groupBy = sortByName.and(sortByDescription);
+        List<Product> products = productJpaRepository.findAll(groupBy);
+        products.forEach(product -> System.out.println(product.getSku()));
     }
 
 }
