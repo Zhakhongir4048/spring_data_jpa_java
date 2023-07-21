@@ -44,7 +44,10 @@ class ProductJpaRepositoryTest {
         product.setName("updated product 1");
         product.setDescription("updated product 1 desc");
         // save updated entity
-        productJpaRepository.save(product);
+        Product updatedProduct = productJpaRepository.save(product);
+        // display product info
+        System.out.println(updatedProduct.getId());
+        System.out.println(updatedProduct);
     }
 
     @Test
@@ -79,7 +82,7 @@ class ProductJpaRepositoryTest {
         product3.setActive(true);
         product3.setImageUrl("product3.png");
         // save products
-        productJpaRepository.saveAll(of(product, product3));
+        System.out.println(productJpaRepository.saveAll(of(product, product3)));
     }
 
     @Test
